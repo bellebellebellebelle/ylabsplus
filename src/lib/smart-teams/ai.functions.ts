@@ -60,19 +60,17 @@ Membres attribuables:
 ${roster}
 
 Retourne ce JSON exact:
-{"plan":"1 phrase de stratégie","st_tasks":[{"agent_id":"uuid d'un membre","title":"titre court","brief":"consigne détaillée et autonome (contexte, attendu, format de livrable)"}]}
+{"plan":"1 phrase de stratégie","tasks":[{"agent_id":"uuid d'un membre","title":"titre court","brief":"consigne détaillée et autonome (contexte, attendu, format de livrable)"}]}
 Entre 2 et ${Math.max(2, Math.min(6, assignable.length * 2))} tâches. Uniquement des agent_id de la liste.`,
         },
       ],
       { maxTokens: 2000 },
     );
 
-    const parsed = parseJson<{
-      plan?: string;
-      tasks?: { agent_id?: string; title?: string; brief?: string }[];
-    }>(raw);
+    type PlannedTask = { agent_id?: string; title?: string; brief?: string };
+    const parsed = parseJson<{ plan?: string; tasks?: PlannedTask[]; st_tasks?: PlannedTask[] }>(raw);
     const validIds = new Set(assignable.map((a) => a.id));
-    const tasks = (parsed?.tasks ?? [])
+    const tasks = (parsed?.tasks ?? parsed?.st_tasks ?? [])
       .filter((t) => t.title && validIds.has(t.agent_id ?? ""))
       .slice(0, 8);
     if (tasks.length === 0) throw new Error("Le chef n'a pas réussi à structurer la mission.");

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { AudioLines, ReceiptEuro, Bot, Send, Globe, Search, ChevronRight, Plus, Lightbulb, Settings, Sparkles, ExternalLink, Workflow } from 'lucide-react';
+import { AudioLines, ReceiptEuro, Bot, Send, Globe, Search, ChevronRight, Plus, Lightbulb, Settings, Sparkles, ExternalLink, Workflow, Users } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 type Activity = { kind: string; app_key: string | null; seconds_saved: number; created_at: string };
@@ -62,8 +62,12 @@ export function Cockpit({ activity, ideasCount }: { activity: Activity[]; ideasC
   }, [activity, days]);
 
   const [autos, setAutos] = useState<Auto[]>([]);
+  const [teams, setTeams] = useState<{ id: string; name: string; department: string }[]>([]);
+  const [agents, setAgents] = useState<{ id: string; name: string; role: string; team_id: string | null; department: string; is_chief: boolean; status: string }[]>([]);
   useEffect(() => {
     void supabase.from('automations').select('id,name,status').order('created_at', { ascending: false }).then(({ data }) => setAutos((data ?? []) as Auto[]));
+    void supabase.from('st_teams').select('id,name,department').order('created_at').then(({ data }) => setTeams(data ?? []));
+    void supabase.from('st_agents').select('id,name,role,team_id,department,is_chief,status').order('created_at').then(({ data }) => setAgents(data ?? []));
   }, []);
   const toggleAuto = async (a: Auto) => {
     const next = a.status === 'active' ? 'paused' : 'active';
@@ -108,7 +112,11 @@ export function Cockpit({ activity, ideasCount }: { activity: Activity[]; ideasC
 
     <section className="ck-card ck-list">
       <header><h3>Applications</h3><Link to="/apps">Toutes les apps</Link></header>
-      <div className="ck-apps"><Link to="/memotrack" onClick={() => track('memotrack')} className="ck-app tone-cyan"><AudioLines /><span><b>MemoTrack</b><small>Mémos de réunion</small><em>● Actif</em></span></Link></div>
+      <div className="ck-apps">
+        <Link to="/memotrack" onClick={() => track('memotrack')} className="ck-app tone-cyan"><AudioLines /><span><b>MemoTrack</b><small>Mémos de réunion</small><em>● Actif</em></span></Link>
+        <Link to="/cockpit" onClick={() => track('mymackenzy')} className="ck-app tone-violet"><Workflow /><span><b>MyMackenzy</b><small>Automatisations</small><em>● Actif</em></span></Link>
+        <Link to="/board" onClick={() => track('smartteams')} className="ck-app tone-green"><Users /><span><b>Smart Teams</b><small>Équipes d’agents IA</small><em>● Actif</em></span></Link>
+      </div>
       <Link to="/ideas" className="ck-add"><Plus size={13} />Ajouter une idée d’application</Link>
     </section>
 
@@ -120,8 +128,9 @@ export function Cockpit({ activity, ideasCount }: { activity: Activity[]; ideasC
     </section>
 
     <section className="ck-card ck-list">
-      <header><h3>Équipe virtuelle</h3><Link to="/ocktavus">Gérer</Link></header>
+      <header><h3>Équipe virtuelle</h3><Link to="/board">Gérer</Link></header>
       <Link to="/ocktavus" onClick={() => track('ocktavus')} className="ck-row"><span className="ck-avatar"><Bot size={16} /></span><span><b>Ocktavus — Agent Google</b><small>Gmail, Agenda, Drive, Docs…</small></span><em className="ck-online">● En ligne</em></Link>
+      {agents.map(a => { const t = teams.find(x => x.id === a.team_id); return <Link key={a.id} to="/board" onClick={() => track('smartteams')} className="ck-row"><span className="ck-avatar"><Users size={15} /></span><span><b>{a.name}{a.is_chief ? ' · Chef' : ''}</b><small>{a.role} — Équipe {t?.name ?? '—'} · {t?.department ?? a.department}</small></span><em className="ck-online">● {a.status === 'working' ? 'Au travail' : 'Prêt'}</em></Link>; })}
     </section>
 
     <section className="ck-card ck-quick">
