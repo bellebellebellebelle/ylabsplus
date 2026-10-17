@@ -1,0 +1,1 @@
+COMMENT ON TABLE public.automations IS 'MyMackenzy automations';
