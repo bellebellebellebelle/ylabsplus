@@ -29,6 +29,13 @@
       "when": 1792238315111,
       "tag": "0003_smart_teams_isolated_workspace",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792244980826,
+      "tag": "0004_noop_apply_pending",
+      "breakpoints": true
     }
   ]
 }
