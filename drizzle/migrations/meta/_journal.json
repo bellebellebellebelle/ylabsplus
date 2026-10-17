@@ -1,5 +1,34 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792224626583,
+      "tag": "0000_talkbuddy_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792224686733,
+      "tag": "0001_mymackenzy_automations",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792236562873,
+      "tag": "0002_apply_source_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792238315111,
+      "tag": "0003_smart_teams_isolated_workspace",
+      "breakpoints": true
+    }
+  ]
 }

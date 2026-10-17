@@ -1,0 +1,14 @@
+{
+  "source": "https://github.com/athyathy/thestteam",
+  "capabilities": [
+    {"capability":"application code and board","source":"GitHub TanStack Start / React","outcome":"migrate while retaining existing applications","status":"in_progress","next_action":"Import isolated Smart Teams modules and routes"},
+    {"capability":"database schema and authorization","source":"PostgreSQL migrations: teams, agents, missions, tasks, departments","outcome":"migrate to Lovable Cloud with isolated tables and owner access","status":"in_progress","next_action":"Apply schema and ownership policies"},
+    {"capability":"existing records","source":"No record export supplied","outcome":"migrate","status":"pending","next_action":"Provide CSV or JSON application table exports"},
+    {"capability":"auth identities and profiles","source":"Email/password authentication; no user export","outcome":"migrate","status":"pending","next_action":"Provide original user IDs and email addresses; verify first-login linking"},
+    {"capability":"AI planning, team composition, prompt drafting and execution","source":"Lovable AI Gateway","outcome":"preserve","status":"in_progress","next_action":"Verify live authenticated mission and task execution"},
+    {"capability":"Odoo reads and writes","source":"User-owned Odoo JSON-RPC","outcome":"preserve using existing shared connection","status":"pending","next_action":"Verify against a connected Odoo account"},
+    {"capability":"uploaded file bytes","source":"No file upload or storage capability detected","outcome":"not_applicable","status":"verified","next_action":null},
+    {"capability":"public endpoints, callbacks, webhooks and schedules","source":"Only app-internal authenticated server functions detected","outcome":"not_applicable","status":"verified","next_action":null},
+    {"capability":"cutover and verification","source":"New Smart Teams default screen","outcome":"preview first; publication not requested","status":"in_progress","next_action":"Verify create/read/update/delete and AI deliverable in preview"}
+  ]
+}

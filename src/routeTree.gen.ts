@@ -10,33 +10,790 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAngeloRouteImport } from './routes/_authenticated/_angelo'
+import { Route as AuthenticatedMemotrackRouteImport } from './routes/_authenticated/_memotrack'
+import { Route as AuthenticatedMmRouteImport } from './routes/_authenticated/_mm'
+import { Route as AuthenticatedAppsRouteImport } from './routes/_authenticated/apps'
+import { Route as AuthenticatedBoardRouteImport } from './routes/_authenticated/board'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedFavoritesRouteImport } from './routes/_authenticated/favorites'
+import { Route as AuthenticatedHistoryRouteImport } from './routes/_authenticated/history'
+import { Route as AuthenticatedIdeasRouteImport } from './routes/_authenticated/ideas'
+import { Route as AuthenticatedIntegrationsRouteImport } from './routes/_authenticated/integrations'
+import { Route as AuthenticatedOcktavusRouteRouteImport } from './routes/_authenticated/ocktavus/route'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedTeamRouteImport } from './routes/_authenticated/team'
+import { Route as ApiAnalyzeRouteImport } from './routes/api/analyze'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AuthenticatedAngeloConnexionOdooRouteImport } from './routes/_authenticated/_angelo/connexion-odoo'
+import { Route as AuthenticatedAngeloFacturesRouteImport } from './routes/_authenticated/_angelo/factures'
+import { Route as AuthenticatedAngeloJournalRouteImport } from './routes/_authenticated/_angelo/journal'
+import { Route as AuthenticatedAngeloParametresRouteImport } from './routes/_authenticated/_angelo/parametres'
+import { Route as AuthenticatedAngeloTableauDeBordRouteImport } from './routes/_authenticated/_angelo/tableau-de-bord'
+import { Route as AuthenticatedMemotrackMemotrackRouteImport } from './routes/_authenticated/_memotrack/memotrack'
+import { Route as AuthenticatedMmCockpitRouteImport } from './routes/_authenticated/_mm/cockpit'
+import { Route as AuthenticatedMmConnectionsRouteImport } from './routes/_authenticated/_mm/connections'
+import { Route as AuthenticatedMmCostsRouteImport } from './routes/_authenticated/_mm/costs'
+import { Route as AuthenticatedMmHelpyRouteImport } from './routes/_authenticated/_mm/helpy'
+import { Route as AuthenticatedMmKpiRouteImport } from './routes/_authenticated/_mm/kpi'
+import { Route as AuthenticatedMmOptimizerRouteImport } from './routes/_authenticated/_mm/optimizer'
+import { Route as AuthenticatedMmPreferencesRouteImport } from './routes/_authenticated/_mm/preferences'
+import { Route as AuthenticatedMmTicksRouteImport } from './routes/_authenticated/_mm/ticks'
+import { Route as AuthenticatedMmToolsRouteImport } from './routes/_authenticated/_mm/tools'
+import { Route as AuthenticatedOcktavusIndexRouteImport } from './routes/_authenticated/ocktavus/index'
+import { Route as AuthenticatedOcktavusAgentRouteImport } from './routes/_authenticated/ocktavus/agent'
+import { Route as AuthenticatedOcktavusBloggerRouteImport } from './routes/_authenticated/ocktavus/blogger'
+import { Route as AuthenticatedOcktavusCalendarRouteImport } from './routes/_authenticated/ocktavus/calendar'
+import { Route as AuthenticatedOcktavusConnexionsRouteImport } from './routes/_authenticated/ocktavus/connexions'
+import { Route as AuthenticatedOcktavusContactsRouteImport } from './routes/_authenticated/ocktavus/contacts'
+import { Route as AuthenticatedOcktavusDocsRouteImport } from './routes/_authenticated/ocktavus/docs'
+import { Route as AuthenticatedOcktavusDriveRouteImport } from './routes/_authenticated/ocktavus/drive'
+import { Route as AuthenticatedOcktavusFormsRouteImport } from './routes/_authenticated/ocktavus/forms'
+import { Route as AuthenticatedOcktavusGmailRouteImport } from './routes/_authenticated/ocktavus/gmail'
+import { Route as AuthenticatedOcktavusJournalRouteImport } from './routes/_authenticated/ocktavus/journal'
+import { Route as AuthenticatedOcktavusReglagesRouteImport } from './routes/_authenticated/ocktavus/reglages'
+import { Route as AuthenticatedOcktavusSheetsRouteImport } from './routes/_authenticated/ocktavus/sheets'
+import { Route as AuthenticatedOcktavusSlidesRouteImport } from './routes/_authenticated/ocktavus/slides'
+import { Route as AuthenticatedOcktavusTasksRouteImport } from './routes/_authenticated/ocktavus/tasks'
+import { Route as ApiGoogleCallbackRouteImport } from './routes/api/google/callback'
+import { Route as ApiPublicGoogleChatRouteImport } from './routes/api/public/google-chat'
+import { Route as AuthenticatedMemotrackMemoIdRouteImport } from './routes/_authenticated/_memotrack/memo.$id'
+import { Route as AuthenticatedMmAutomationsIndexRouteImport } from './routes/_authenticated/_mm/automations/index'
+import { Route as AuthenticatedMmAutomationsIdRouteImport } from './routes/_authenticated/_mm/automations/$id'
+import { Route as AuthenticatedMmAutomationsNewRouteImport } from './routes/_authenticated/_mm/automations/new'
+import { Route as AuthenticatedMmExecutionsIndexRouteImport } from './routes/_authenticated/_mm/executions/index'
+import { Route as AuthenticatedMmExecutionsIdRouteImport } from './routes/_authenticated/_mm/executions/$id'
+import { Route as AuthenticatedOcktavusAgentIndexRouteImport } from './routes/_authenticated/ocktavus/agent.index'
+import { Route as AuthenticatedOcktavusAgentConversationIdRouteImport } from './routes/_authenticated/ocktavus/agent.$conversationId'
+import { Route as AuthenticatedOcktavusChatThreadIdRouteImport } from './routes/_authenticated/ocktavus/chat.$threadId'
+import { Route as ApiPublicGoogleCallbackRouteImport } from './routes/api/public/google.callback'
+import { Route as ApiPublicHooksAngeloCronRouteImport } from './routes/api/public/hooks/angelo-cron'
+import { Route as ApiPublicHooksTickRouteImport } from './routes/api/public/hooks/tick'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAngeloRoute = AuthenticatedAngeloRouteImport.update({
+  id: '/_angelo',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMemotrackRoute = AuthenticatedMemotrackRouteImport.update({
+  id: '/_memotrack',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMmRoute = AuthenticatedMmRouteImport.update({
+  id: '/_mm',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAppsRoute = AuthenticatedAppsRouteImport.update({
+  id: '/apps',
+  path: '/apps',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBoardRoute = AuthenticatedBoardRouteImport.update({
+  id: '/board',
+  path: '/board',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFavoritesRoute = AuthenticatedFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedHistoryRoute = AuthenticatedHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIdeasRoute = AuthenticatedIdeasRouteImport.update({
+  id: '/ideas',
+  path: '/ideas',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIntegrationsRoute =
+  AuthenticatedIntegrationsRouteImport.update({
+    id: '/integrations',
+    path: '/integrations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedOcktavusRouteRoute =
+  AuthenticatedOcktavusRouteRouteImport.update({
+    id: '/ocktavus',
+    path: '/ocktavus',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTeamRoute = AuthenticatedTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiAnalyzeRoute = ApiAnalyzeRouteImport.update({
+  id: '/api/analyze',
+  path: '/api/analyze',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAngeloConnexionOdooRoute =
+  AuthenticatedAngeloConnexionOdooRouteImport.update({
+    id: '/connexion-odoo',
+    path: '/connexion-odoo',
+    getParentRoute: () => AuthenticatedAngeloRoute,
+  } as any)
+const AuthenticatedAngeloFacturesRoute =
+  AuthenticatedAngeloFacturesRouteImport.update({
+    id: '/factures',
+    path: '/factures',
+    getParentRoute: () => AuthenticatedAngeloRoute,
+  } as any)
+const AuthenticatedAngeloJournalRoute =
+  AuthenticatedAngeloJournalRouteImport.update({
+    id: '/journal',
+    path: '/journal',
+    getParentRoute: () => AuthenticatedAngeloRoute,
+  } as any)
+const AuthenticatedAngeloParametresRoute =
+  AuthenticatedAngeloParametresRouteImport.update({
+    id: '/parametres',
+    path: '/parametres',
+    getParentRoute: () => AuthenticatedAngeloRoute,
+  } as any)
+const AuthenticatedAngeloTableauDeBordRoute =
+  AuthenticatedAngeloTableauDeBordRouteImport.update({
+    id: '/tableau-de-bord',
+    path: '/tableau-de-bord',
+    getParentRoute: () => AuthenticatedAngeloRoute,
+  } as any)
+const AuthenticatedMemotrackMemotrackRoute =
+  AuthenticatedMemotrackMemotrackRouteImport.update({
+    id: '/memotrack',
+    path: '/memotrack',
+    getParentRoute: () => AuthenticatedMemotrackRoute,
+  } as any)
+const AuthenticatedMmCockpitRoute = AuthenticatedMmCockpitRouteImport.update({
+  id: '/cockpit',
+  path: '/cockpit',
+  getParentRoute: () => AuthenticatedMmRoute,
+} as any)
+const AuthenticatedMmConnectionsRoute =
+  AuthenticatedMmConnectionsRouteImport.update({
+    id: '/connections',
+    path: '/connections',
+    getParentRoute: () => AuthenticatedMmRoute,
+  } as any)
+const AuthenticatedMmCostsRoute = AuthenticatedMmCostsRouteImport.update({
+  id: '/costs',
+  path: '/costs',
+  getParentRoute: () => AuthenticatedMmRoute,
+} as any)
+const AuthenticatedMmHelpyRoute = AuthenticatedMmHelpyRouteImport.update({
+  id: '/helpy',
+  path: '/helpy',
+  getParentRoute: () => AuthenticatedMmRoute,
+} as any)
+const AuthenticatedMmKpiRoute = AuthenticatedMmKpiRouteImport.update({
+  id: '/kpi',
+  path: '/kpi',
+  getParentRoute: () => AuthenticatedMmRoute,
+} as any)
+const AuthenticatedMmOptimizerRoute =
+  AuthenticatedMmOptimizerRouteImport.update({
+    id: '/optimizer',
+    path: '/optimizer',
+    getParentRoute: () => AuthenticatedMmRoute,
+  } as any)
+const AuthenticatedMmPreferencesRoute =
+  AuthenticatedMmPreferencesRouteImport.update({
+    id: '/preferences',
+    path: '/preferences',
+    getParentRoute: () => AuthenticatedMmRoute,
+  } as any)
+const AuthenticatedMmTicksRoute = AuthenticatedMmTicksRouteImport.update({
+  id: '/ticks',
+  path: '/ticks',
+  getParentRoute: () => AuthenticatedMmRoute,
+} as any)
+const AuthenticatedMmToolsRoute = AuthenticatedMmToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
+  getParentRoute: () => AuthenticatedMmRoute,
+} as any)
+const AuthenticatedOcktavusIndexRoute =
+  AuthenticatedOcktavusIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusAgentRoute =
+  AuthenticatedOcktavusAgentRouteImport.update({
+    id: '/agent',
+    path: '/agent',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusBloggerRoute =
+  AuthenticatedOcktavusBloggerRouteImport.update({
+    id: '/blogger',
+    path: '/blogger',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusCalendarRoute =
+  AuthenticatedOcktavusCalendarRouteImport.update({
+    id: '/calendar',
+    path: '/calendar',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusConnexionsRoute =
+  AuthenticatedOcktavusConnexionsRouteImport.update({
+    id: '/connexions',
+    path: '/connexions',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusContactsRoute =
+  AuthenticatedOcktavusContactsRouteImport.update({
+    id: '/contacts',
+    path: '/contacts',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusDocsRoute =
+  AuthenticatedOcktavusDocsRouteImport.update({
+    id: '/docs',
+    path: '/docs',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusDriveRoute =
+  AuthenticatedOcktavusDriveRouteImport.update({
+    id: '/drive',
+    path: '/drive',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusFormsRoute =
+  AuthenticatedOcktavusFormsRouteImport.update({
+    id: '/forms',
+    path: '/forms',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusGmailRoute =
+  AuthenticatedOcktavusGmailRouteImport.update({
+    id: '/gmail',
+    path: '/gmail',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusJournalRoute =
+  AuthenticatedOcktavusJournalRouteImport.update({
+    id: '/journal',
+    path: '/journal',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusReglagesRoute =
+  AuthenticatedOcktavusReglagesRouteImport.update({
+    id: '/reglages',
+    path: '/reglages',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusSheetsRoute =
+  AuthenticatedOcktavusSheetsRouteImport.update({
+    id: '/sheets',
+    path: '/sheets',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusSlidesRoute =
+  AuthenticatedOcktavusSlidesRouteImport.update({
+    id: '/slides',
+    path: '/slides',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const AuthenticatedOcktavusTasksRoute =
+  AuthenticatedOcktavusTasksRouteImport.update({
+    id: '/tasks',
+    path: '/tasks',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const ApiGoogleCallbackRoute = ApiGoogleCallbackRouteImport.update({
+  id: '/api/google/callback',
+  path: '/api/google/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicGoogleChatRoute = ApiPublicGoogleChatRouteImport.update({
+  id: '/api/public/google-chat',
+  path: '/api/public/google-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedMemotrackMemoIdRoute =
+  AuthenticatedMemotrackMemoIdRouteImport.update({
+    id: '/memo/$id',
+    path: '/memo/$id',
+    getParentRoute: () => AuthenticatedMemotrackRoute,
+  } as any)
+const AuthenticatedMmAutomationsIndexRoute =
+  AuthenticatedMmAutomationsIndexRouteImport.update({
+    id: '/automations/',
+    path: '/automations/',
+    getParentRoute: () => AuthenticatedMmRoute,
+  } as any)
+const AuthenticatedMmAutomationsIdRoute =
+  AuthenticatedMmAutomationsIdRouteImport.update({
+    id: '/automations/$id',
+    path: '/automations/$id',
+    getParentRoute: () => AuthenticatedMmRoute,
+  } as any)
+const AuthenticatedMmAutomationsNewRoute =
+  AuthenticatedMmAutomationsNewRouteImport.update({
+    id: '/automations/new',
+    path: '/automations/new',
+    getParentRoute: () => AuthenticatedMmRoute,
+  } as any)
+const AuthenticatedMmExecutionsIndexRoute =
+  AuthenticatedMmExecutionsIndexRouteImport.update({
+    id: '/executions/',
+    path: '/executions/',
+    getParentRoute: () => AuthenticatedMmRoute,
+  } as any)
+const AuthenticatedMmExecutionsIdRoute =
+  AuthenticatedMmExecutionsIdRouteImport.update({
+    id: '/executions/$id',
+    path: '/executions/$id',
+    getParentRoute: () => AuthenticatedMmRoute,
+  } as any)
+const AuthenticatedOcktavusAgentIndexRoute =
+  AuthenticatedOcktavusAgentIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedOcktavusAgentRoute,
+  } as any)
+const AuthenticatedOcktavusAgentConversationIdRoute =
+  AuthenticatedOcktavusAgentConversationIdRouteImport.update({
+    id: '/$conversationId',
+    path: '/$conversationId',
+    getParentRoute: () => AuthenticatedOcktavusAgentRoute,
+  } as any)
+const AuthenticatedOcktavusChatThreadIdRoute =
+  AuthenticatedOcktavusChatThreadIdRouteImport.update({
+    id: '/chat/$threadId',
+    path: '/chat/$threadId',
+    getParentRoute: () => AuthenticatedOcktavusRouteRoute,
+  } as any)
+const ApiPublicGoogleCallbackRoute = ApiPublicGoogleCallbackRouteImport.update({
+  id: '/api/public/google/callback',
+  path: '/api/public/google/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicHooksAngeloCronRoute =
+  ApiPublicHooksAngeloCronRouteImport.update({
+    id: '/api/public/hooks/angelo-cron',
+    path: '/api/public/hooks/angelo-cron',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksTickRoute = ApiPublicHooksTickRouteImport.update({
+  id: '/api/public/hooks/tick',
+  path: '/api/public/hooks/tick',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/ocktavus': typeof AuthenticatedOcktavusRouteRouteWithChildren
+  '/apps': typeof AuthenticatedAppsRoute
+  '/board': typeof AuthenticatedBoardRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/favorites': typeof AuthenticatedFavoritesRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/ideas': typeof AuthenticatedIdeasRoute
+  '/integrations': typeof AuthenticatedIntegrationsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/team': typeof AuthenticatedTeamRoute
+  '/api/analyze': typeof ApiAnalyzeRoute
+  '/api/chat': typeof ApiChatRoute
+  '/connexion-odoo': typeof AuthenticatedAngeloConnexionOdooRoute
+  '/factures': typeof AuthenticatedAngeloFacturesRoute
+  '/journal': typeof AuthenticatedAngeloJournalRoute
+  '/parametres': typeof AuthenticatedAngeloParametresRoute
+  '/tableau-de-bord': typeof AuthenticatedAngeloTableauDeBordRoute
+  '/memotrack': typeof AuthenticatedMemotrackMemotrackRoute
+  '/cockpit': typeof AuthenticatedMmCockpitRoute
+  '/connections': typeof AuthenticatedMmConnectionsRoute
+  '/costs': typeof AuthenticatedMmCostsRoute
+  '/helpy': typeof AuthenticatedMmHelpyRoute
+  '/kpi': typeof AuthenticatedMmKpiRoute
+  '/optimizer': typeof AuthenticatedMmOptimizerRoute
+  '/preferences': typeof AuthenticatedMmPreferencesRoute
+  '/ticks': typeof AuthenticatedMmTicksRoute
+  '/tools': typeof AuthenticatedMmToolsRoute
+  '/ocktavus/agent': typeof AuthenticatedOcktavusAgentRouteWithChildren
+  '/ocktavus/blogger': typeof AuthenticatedOcktavusBloggerRoute
+  '/ocktavus/calendar': typeof AuthenticatedOcktavusCalendarRoute
+  '/ocktavus/connexions': typeof AuthenticatedOcktavusConnexionsRoute
+  '/ocktavus/contacts': typeof AuthenticatedOcktavusContactsRoute
+  '/ocktavus/docs': typeof AuthenticatedOcktavusDocsRoute
+  '/ocktavus/drive': typeof AuthenticatedOcktavusDriveRoute
+  '/ocktavus/forms': typeof AuthenticatedOcktavusFormsRoute
+  '/ocktavus/gmail': typeof AuthenticatedOcktavusGmailRoute
+  '/ocktavus/journal': typeof AuthenticatedOcktavusJournalRoute
+  '/ocktavus/reglages': typeof AuthenticatedOcktavusReglagesRoute
+  '/ocktavus/sheets': typeof AuthenticatedOcktavusSheetsRoute
+  '/ocktavus/slides': typeof AuthenticatedOcktavusSlidesRoute
+  '/ocktavus/tasks': typeof AuthenticatedOcktavusTasksRoute
+  '/api/google/callback': typeof ApiGoogleCallbackRoute
+  '/api/public/google-chat': typeof ApiPublicGoogleChatRoute
+  '/ocktavus/': typeof AuthenticatedOcktavusIndexRoute
+  '/memo/$id': typeof AuthenticatedMemotrackMemoIdRoute
+  '/automations/$id': typeof AuthenticatedMmAutomationsIdRoute
+  '/automations/new': typeof AuthenticatedMmAutomationsNewRoute
+  '/executions/$id': typeof AuthenticatedMmExecutionsIdRoute
+  '/ocktavus/agent/$conversationId': typeof AuthenticatedOcktavusAgentConversationIdRoute
+  '/ocktavus/chat/$threadId': typeof AuthenticatedOcktavusChatThreadIdRoute
+  '/api/public/google/callback': typeof ApiPublicGoogleCallbackRoute
+  '/api/public/hooks/angelo-cron': typeof ApiPublicHooksAngeloCronRoute
+  '/api/public/hooks/tick': typeof ApiPublicHooksTickRoute
+  '/automations/': typeof AuthenticatedMmAutomationsIndexRoute
+  '/executions/': typeof AuthenticatedMmExecutionsIndexRoute
+  '/ocktavus/agent/': typeof AuthenticatedOcktavusAgentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/apps': typeof AuthenticatedAppsRoute
+  '/board': typeof AuthenticatedBoardRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/favorites': typeof AuthenticatedFavoritesRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/ideas': typeof AuthenticatedIdeasRoute
+  '/integrations': typeof AuthenticatedIntegrationsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/team': typeof AuthenticatedTeamRoute
+  '/api/analyze': typeof ApiAnalyzeRoute
+  '/api/chat': typeof ApiChatRoute
+  '/connexion-odoo': typeof AuthenticatedAngeloConnexionOdooRoute
+  '/factures': typeof AuthenticatedAngeloFacturesRoute
+  '/journal': typeof AuthenticatedAngeloJournalRoute
+  '/parametres': typeof AuthenticatedAngeloParametresRoute
+  '/tableau-de-bord': typeof AuthenticatedAngeloTableauDeBordRoute
+  '/memotrack': typeof AuthenticatedMemotrackMemotrackRoute
+  '/cockpit': typeof AuthenticatedMmCockpitRoute
+  '/connections': typeof AuthenticatedMmConnectionsRoute
+  '/costs': typeof AuthenticatedMmCostsRoute
+  '/helpy': typeof AuthenticatedMmHelpyRoute
+  '/kpi': typeof AuthenticatedMmKpiRoute
+  '/optimizer': typeof AuthenticatedMmOptimizerRoute
+  '/preferences': typeof AuthenticatedMmPreferencesRoute
+  '/ticks': typeof AuthenticatedMmTicksRoute
+  '/tools': typeof AuthenticatedMmToolsRoute
+  '/ocktavus/blogger': typeof AuthenticatedOcktavusBloggerRoute
+  '/ocktavus/calendar': typeof AuthenticatedOcktavusCalendarRoute
+  '/ocktavus/connexions': typeof AuthenticatedOcktavusConnexionsRoute
+  '/ocktavus/contacts': typeof AuthenticatedOcktavusContactsRoute
+  '/ocktavus/docs': typeof AuthenticatedOcktavusDocsRoute
+  '/ocktavus/drive': typeof AuthenticatedOcktavusDriveRoute
+  '/ocktavus/forms': typeof AuthenticatedOcktavusFormsRoute
+  '/ocktavus/gmail': typeof AuthenticatedOcktavusGmailRoute
+  '/ocktavus/journal': typeof AuthenticatedOcktavusJournalRoute
+  '/ocktavus/reglages': typeof AuthenticatedOcktavusReglagesRoute
+  '/ocktavus/sheets': typeof AuthenticatedOcktavusSheetsRoute
+  '/ocktavus/slides': typeof AuthenticatedOcktavusSlidesRoute
+  '/ocktavus/tasks': typeof AuthenticatedOcktavusTasksRoute
+  '/api/google/callback': typeof ApiGoogleCallbackRoute
+  '/api/public/google-chat': typeof ApiPublicGoogleChatRoute
+  '/ocktavus': typeof AuthenticatedOcktavusIndexRoute
+  '/memo/$id': typeof AuthenticatedMemotrackMemoIdRoute
+  '/automations/$id': typeof AuthenticatedMmAutomationsIdRoute
+  '/automations/new': typeof AuthenticatedMmAutomationsNewRoute
+  '/executions/$id': typeof AuthenticatedMmExecutionsIdRoute
+  '/ocktavus/agent/$conversationId': typeof AuthenticatedOcktavusAgentConversationIdRoute
+  '/ocktavus/chat/$threadId': typeof AuthenticatedOcktavusChatThreadIdRoute
+  '/api/public/google/callback': typeof ApiPublicGoogleCallbackRoute
+  '/api/public/hooks/angelo-cron': typeof ApiPublicHooksAngeloCronRoute
+  '/api/public/hooks/tick': typeof ApiPublicHooksTickRoute
+  '/automations': typeof AuthenticatedMmAutomationsIndexRoute
+  '/executions': typeof AuthenticatedMmExecutionsIndexRoute
+  '/ocktavus/agent': typeof AuthenticatedOcktavusAgentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/ocktavus': typeof AuthenticatedOcktavusRouteRouteWithChildren
+  '/_authenticated/_angelo': typeof AuthenticatedAngeloRouteWithChildren
+  '/_authenticated/_memotrack': typeof AuthenticatedMemotrackRouteWithChildren
+  '/_authenticated/_mm': typeof AuthenticatedMmRouteWithChildren
+  '/_authenticated/apps': typeof AuthenticatedAppsRoute
+  '/_authenticated/board': typeof AuthenticatedBoardRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/favorites': typeof AuthenticatedFavoritesRoute
+  '/_authenticated/history': typeof AuthenticatedHistoryRoute
+  '/_authenticated/ideas': typeof AuthenticatedIdeasRoute
+  '/_authenticated/integrations': typeof AuthenticatedIntegrationsRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/team': typeof AuthenticatedTeamRoute
+  '/api/analyze': typeof ApiAnalyzeRoute
+  '/api/chat': typeof ApiChatRoute
+  '/_authenticated/_angelo/connexion-odoo': typeof AuthenticatedAngeloConnexionOdooRoute
+  '/_authenticated/_angelo/factures': typeof AuthenticatedAngeloFacturesRoute
+  '/_authenticated/_angelo/journal': typeof AuthenticatedAngeloJournalRoute
+  '/_authenticated/_angelo/parametres': typeof AuthenticatedAngeloParametresRoute
+  '/_authenticated/_angelo/tableau-de-bord': typeof AuthenticatedAngeloTableauDeBordRoute
+  '/_authenticated/_memotrack/memotrack': typeof AuthenticatedMemotrackMemotrackRoute
+  '/_authenticated/_mm/cockpit': typeof AuthenticatedMmCockpitRoute
+  '/_authenticated/_mm/connections': typeof AuthenticatedMmConnectionsRoute
+  '/_authenticated/_mm/costs': typeof AuthenticatedMmCostsRoute
+  '/_authenticated/_mm/helpy': typeof AuthenticatedMmHelpyRoute
+  '/_authenticated/_mm/kpi': typeof AuthenticatedMmKpiRoute
+  '/_authenticated/_mm/optimizer': typeof AuthenticatedMmOptimizerRoute
+  '/_authenticated/_mm/preferences': typeof AuthenticatedMmPreferencesRoute
+  '/_authenticated/_mm/ticks': typeof AuthenticatedMmTicksRoute
+  '/_authenticated/_mm/tools': typeof AuthenticatedMmToolsRoute
+  '/_authenticated/ocktavus/agent': typeof AuthenticatedOcktavusAgentRouteWithChildren
+  '/_authenticated/ocktavus/blogger': typeof AuthenticatedOcktavusBloggerRoute
+  '/_authenticated/ocktavus/calendar': typeof AuthenticatedOcktavusCalendarRoute
+  '/_authenticated/ocktavus/connexions': typeof AuthenticatedOcktavusConnexionsRoute
+  '/_authenticated/ocktavus/contacts': typeof AuthenticatedOcktavusContactsRoute
+  '/_authenticated/ocktavus/docs': typeof AuthenticatedOcktavusDocsRoute
+  '/_authenticated/ocktavus/drive': typeof AuthenticatedOcktavusDriveRoute
+  '/_authenticated/ocktavus/forms': typeof AuthenticatedOcktavusFormsRoute
+  '/_authenticated/ocktavus/gmail': typeof AuthenticatedOcktavusGmailRoute
+  '/_authenticated/ocktavus/journal': typeof AuthenticatedOcktavusJournalRoute
+  '/_authenticated/ocktavus/reglages': typeof AuthenticatedOcktavusReglagesRoute
+  '/_authenticated/ocktavus/sheets': typeof AuthenticatedOcktavusSheetsRoute
+  '/_authenticated/ocktavus/slides': typeof AuthenticatedOcktavusSlidesRoute
+  '/_authenticated/ocktavus/tasks': typeof AuthenticatedOcktavusTasksRoute
+  '/api/google/callback': typeof ApiGoogleCallbackRoute
+  '/api/public/google-chat': typeof ApiPublicGoogleChatRoute
+  '/_authenticated/ocktavus/': typeof AuthenticatedOcktavusIndexRoute
+  '/_authenticated/_memotrack/memo/$id': typeof AuthenticatedMemotrackMemoIdRoute
+  '/_authenticated/_mm/automations/$id': typeof AuthenticatedMmAutomationsIdRoute
+  '/_authenticated/_mm/automations/new': typeof AuthenticatedMmAutomationsNewRoute
+  '/_authenticated/_mm/executions/$id': typeof AuthenticatedMmExecutionsIdRoute
+  '/_authenticated/ocktavus/agent/$conversationId': typeof AuthenticatedOcktavusAgentConversationIdRoute
+  '/_authenticated/ocktavus/chat/$threadId': typeof AuthenticatedOcktavusChatThreadIdRoute
+  '/api/public/google/callback': typeof ApiPublicGoogleCallbackRoute
+  '/api/public/hooks/angelo-cron': typeof ApiPublicHooksAngeloCronRoute
+  '/api/public/hooks/tick': typeof ApiPublicHooksTickRoute
+  '/_authenticated/_mm/automations/': typeof AuthenticatedMmAutomationsIndexRoute
+  '/_authenticated/_mm/executions/': typeof AuthenticatedMmExecutionsIndexRoute
+  '/_authenticated/ocktavus/agent/': typeof AuthenticatedOcktavusAgentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/ocktavus'
+    | '/apps'
+    | '/board'
+    | '/dashboard'
+    | '/favorites'
+    | '/history'
+    | '/ideas'
+    | '/integrations'
+    | '/settings'
+    | '/team'
+    | '/api/analyze'
+    | '/api/chat'
+    | '/connexion-odoo'
+    | '/factures'
+    | '/journal'
+    | '/parametres'
+    | '/tableau-de-bord'
+    | '/memotrack'
+    | '/cockpit'
+    | '/connections'
+    | '/costs'
+    | '/helpy'
+    | '/kpi'
+    | '/optimizer'
+    | '/preferences'
+    | '/ticks'
+    | '/tools'
+    | '/ocktavus/agent'
+    | '/ocktavus/blogger'
+    | '/ocktavus/calendar'
+    | '/ocktavus/connexions'
+    | '/ocktavus/contacts'
+    | '/ocktavus/docs'
+    | '/ocktavus/drive'
+    | '/ocktavus/forms'
+    | '/ocktavus/gmail'
+    | '/ocktavus/journal'
+    | '/ocktavus/reglages'
+    | '/ocktavus/sheets'
+    | '/ocktavus/slides'
+    | '/ocktavus/tasks'
+    | '/api/google/callback'
+    | '/api/public/google-chat'
+    | '/ocktavus/'
+    | '/memo/$id'
+    | '/automations/$id'
+    | '/automations/new'
+    | '/executions/$id'
+    | '/ocktavus/agent/$conversationId'
+    | '/ocktavus/chat/$threadId'
+    | '/api/public/google/callback'
+    | '/api/public/hooks/angelo-cron'
+    | '/api/public/hooks/tick'
+    | '/automations/'
+    | '/executions/'
+    | '/ocktavus/agent/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/apps'
+    | '/board'
+    | '/dashboard'
+    | '/favorites'
+    | '/history'
+    | '/ideas'
+    | '/integrations'
+    | '/settings'
+    | '/team'
+    | '/api/analyze'
+    | '/api/chat'
+    | '/connexion-odoo'
+    | '/factures'
+    | '/journal'
+    | '/parametres'
+    | '/tableau-de-bord'
+    | '/memotrack'
+    | '/cockpit'
+    | '/connections'
+    | '/costs'
+    | '/helpy'
+    | '/kpi'
+    | '/optimizer'
+    | '/preferences'
+    | '/ticks'
+    | '/tools'
+    | '/ocktavus/blogger'
+    | '/ocktavus/calendar'
+    | '/ocktavus/connexions'
+    | '/ocktavus/contacts'
+    | '/ocktavus/docs'
+    | '/ocktavus/drive'
+    | '/ocktavus/forms'
+    | '/ocktavus/gmail'
+    | '/ocktavus/journal'
+    | '/ocktavus/reglages'
+    | '/ocktavus/sheets'
+    | '/ocktavus/slides'
+    | '/ocktavus/tasks'
+    | '/api/google/callback'
+    | '/api/public/google-chat'
+    | '/ocktavus'
+    | '/memo/$id'
+    | '/automations/$id'
+    | '/automations/new'
+    | '/executions/$id'
+    | '/ocktavus/agent/$conversationId'
+    | '/ocktavus/chat/$threadId'
+    | '/api/public/google/callback'
+    | '/api/public/hooks/angelo-cron'
+    | '/api/public/hooks/tick'
+    | '/automations'
+    | '/executions'
+    | '/ocktavus/agent'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/ocktavus'
+    | '/_authenticated/_angelo'
+    | '/_authenticated/_memotrack'
+    | '/_authenticated/_mm'
+    | '/_authenticated/apps'
+    | '/_authenticated/board'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/favorites'
+    | '/_authenticated/history'
+    | '/_authenticated/ideas'
+    | '/_authenticated/integrations'
+    | '/_authenticated/settings'
+    | '/_authenticated/team'
+    | '/api/analyze'
+    | '/api/chat'
+    | '/_authenticated/_angelo/connexion-odoo'
+    | '/_authenticated/_angelo/factures'
+    | '/_authenticated/_angelo/journal'
+    | '/_authenticated/_angelo/parametres'
+    | '/_authenticated/_angelo/tableau-de-bord'
+    | '/_authenticated/_memotrack/memotrack'
+    | '/_authenticated/_mm/cockpit'
+    | '/_authenticated/_mm/connections'
+    | '/_authenticated/_mm/costs'
+    | '/_authenticated/_mm/helpy'
+    | '/_authenticated/_mm/kpi'
+    | '/_authenticated/_mm/optimizer'
+    | '/_authenticated/_mm/preferences'
+    | '/_authenticated/_mm/ticks'
+    | '/_authenticated/_mm/tools'
+    | '/_authenticated/ocktavus/agent'
+    | '/_authenticated/ocktavus/blogger'
+    | '/_authenticated/ocktavus/calendar'
+    | '/_authenticated/ocktavus/connexions'
+    | '/_authenticated/ocktavus/contacts'
+    | '/_authenticated/ocktavus/docs'
+    | '/_authenticated/ocktavus/drive'
+    | '/_authenticated/ocktavus/forms'
+    | '/_authenticated/ocktavus/gmail'
+    | '/_authenticated/ocktavus/journal'
+    | '/_authenticated/ocktavus/reglages'
+    | '/_authenticated/ocktavus/sheets'
+    | '/_authenticated/ocktavus/slides'
+    | '/_authenticated/ocktavus/tasks'
+    | '/api/google/callback'
+    | '/api/public/google-chat'
+    | '/_authenticated/ocktavus/'
+    | '/_authenticated/_memotrack/memo/$id'
+    | '/_authenticated/_mm/automations/$id'
+    | '/_authenticated/_mm/automations/new'
+    | '/_authenticated/_mm/executions/$id'
+    | '/_authenticated/ocktavus/agent/$conversationId'
+    | '/_authenticated/ocktavus/chat/$threadId'
+    | '/api/public/google/callback'
+    | '/api/public/hooks/angelo-cron'
+    | '/api/public/hooks/tick'
+    | '/_authenticated/_mm/automations/'
+    | '/_authenticated/_mm/executions/'
+    | '/_authenticated/ocktavus/agent/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ApiAnalyzeRoute: typeof ApiAnalyzeRoute
+  ApiChatRoute: typeof ApiChatRoute
+  ApiGoogleCallbackRoute: typeof ApiGoogleCallbackRoute
+  ApiPublicGoogleChatRoute: typeof ApiPublicGoogleChatRoute
+  ApiPublicGoogleCallbackRoute: typeof ApiPublicGoogleCallbackRoute
+  ApiPublicHooksAngeloCronRoute: typeof ApiPublicHooksAngeloCronRoute
+  ApiPublicHooksTickRoute: typeof ApiPublicHooksTickRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +805,618 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/_angelo': {
+      id: '/_authenticated/_angelo'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedAngeloRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/_memotrack': {
+      id: '/_authenticated/_memotrack'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedMemotrackRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/_mm': {
+      id: '/_authenticated/_mm'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedMmRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/apps': {
+      id: '/_authenticated/apps'
+      path: '/apps'
+      fullPath: '/apps'
+      preLoaderRoute: typeof AuthenticatedAppsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/board': {
+      id: '/_authenticated/board'
+      path: '/board'
+      fullPath: '/board'
+      preLoaderRoute: typeof AuthenticatedBoardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/favorites': {
+      id: '/_authenticated/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof AuthenticatedFavoritesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/history': {
+      id: '/_authenticated/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof AuthenticatedHistoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ideas': {
+      id: '/_authenticated/ideas'
+      path: '/ideas'
+      fullPath: '/ideas'
+      preLoaderRoute: typeof AuthenticatedIdeasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/integrations': {
+      id: '/_authenticated/integrations'
+      path: '/integrations'
+      fullPath: '/integrations'
+      preLoaderRoute: typeof AuthenticatedIntegrationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ocktavus': {
+      id: '/_authenticated/ocktavus'
+      path: '/ocktavus'
+      fullPath: '/ocktavus'
+      preLoaderRoute: typeof AuthenticatedOcktavusRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/team': {
+      id: '/_authenticated/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof AuthenticatedTeamRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/analyze': {
+      id: '/api/analyze'
+      path: '/api/analyze'
+      fullPath: '/api/analyze'
+      preLoaderRoute: typeof ApiAnalyzeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/_angelo/connexion-odoo': {
+      id: '/_authenticated/_angelo/connexion-odoo'
+      path: '/connexion-odoo'
+      fullPath: '/connexion-odoo'
+      preLoaderRoute: typeof AuthenticatedAngeloConnexionOdooRouteImport
+      parentRoute: typeof AuthenticatedAngeloRoute
+    }
+    '/_authenticated/_angelo/factures': {
+      id: '/_authenticated/_angelo/factures'
+      path: '/factures'
+      fullPath: '/factures'
+      preLoaderRoute: typeof AuthenticatedAngeloFacturesRouteImport
+      parentRoute: typeof AuthenticatedAngeloRoute
+    }
+    '/_authenticated/_angelo/journal': {
+      id: '/_authenticated/_angelo/journal'
+      path: '/journal'
+      fullPath: '/journal'
+      preLoaderRoute: typeof AuthenticatedAngeloJournalRouteImport
+      parentRoute: typeof AuthenticatedAngeloRoute
+    }
+    '/_authenticated/_angelo/parametres': {
+      id: '/_authenticated/_angelo/parametres'
+      path: '/parametres'
+      fullPath: '/parametres'
+      preLoaderRoute: typeof AuthenticatedAngeloParametresRouteImport
+      parentRoute: typeof AuthenticatedAngeloRoute
+    }
+    '/_authenticated/_angelo/tableau-de-bord': {
+      id: '/_authenticated/_angelo/tableau-de-bord'
+      path: '/tableau-de-bord'
+      fullPath: '/tableau-de-bord'
+      preLoaderRoute: typeof AuthenticatedAngeloTableauDeBordRouteImport
+      parentRoute: typeof AuthenticatedAngeloRoute
+    }
+    '/_authenticated/_memotrack/memotrack': {
+      id: '/_authenticated/_memotrack/memotrack'
+      path: '/memotrack'
+      fullPath: '/memotrack'
+      preLoaderRoute: typeof AuthenticatedMemotrackMemotrackRouteImport
+      parentRoute: typeof AuthenticatedMemotrackRoute
+    }
+    '/_authenticated/_mm/cockpit': {
+      id: '/_authenticated/_mm/cockpit'
+      path: '/cockpit'
+      fullPath: '/cockpit'
+      preLoaderRoute: typeof AuthenticatedMmCockpitRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/connections': {
+      id: '/_authenticated/_mm/connections'
+      path: '/connections'
+      fullPath: '/connections'
+      preLoaderRoute: typeof AuthenticatedMmConnectionsRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/costs': {
+      id: '/_authenticated/_mm/costs'
+      path: '/costs'
+      fullPath: '/costs'
+      preLoaderRoute: typeof AuthenticatedMmCostsRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/helpy': {
+      id: '/_authenticated/_mm/helpy'
+      path: '/helpy'
+      fullPath: '/helpy'
+      preLoaderRoute: typeof AuthenticatedMmHelpyRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/kpi': {
+      id: '/_authenticated/_mm/kpi'
+      path: '/kpi'
+      fullPath: '/kpi'
+      preLoaderRoute: typeof AuthenticatedMmKpiRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/optimizer': {
+      id: '/_authenticated/_mm/optimizer'
+      path: '/optimizer'
+      fullPath: '/optimizer'
+      preLoaderRoute: typeof AuthenticatedMmOptimizerRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/preferences': {
+      id: '/_authenticated/_mm/preferences'
+      path: '/preferences'
+      fullPath: '/preferences'
+      preLoaderRoute: typeof AuthenticatedMmPreferencesRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/ticks': {
+      id: '/_authenticated/_mm/ticks'
+      path: '/ticks'
+      fullPath: '/ticks'
+      preLoaderRoute: typeof AuthenticatedMmTicksRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/tools': {
+      id: '/_authenticated/_mm/tools'
+      path: '/tools'
+      fullPath: '/tools'
+      preLoaderRoute: typeof AuthenticatedMmToolsRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/ocktavus/': {
+      id: '/_authenticated/ocktavus/'
+      path: '/'
+      fullPath: '/ocktavus/'
+      preLoaderRoute: typeof AuthenticatedOcktavusIndexRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/agent': {
+      id: '/_authenticated/ocktavus/agent'
+      path: '/agent'
+      fullPath: '/ocktavus/agent'
+      preLoaderRoute: typeof AuthenticatedOcktavusAgentRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/blogger': {
+      id: '/_authenticated/ocktavus/blogger'
+      path: '/blogger'
+      fullPath: '/ocktavus/blogger'
+      preLoaderRoute: typeof AuthenticatedOcktavusBloggerRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/calendar': {
+      id: '/_authenticated/ocktavus/calendar'
+      path: '/calendar'
+      fullPath: '/ocktavus/calendar'
+      preLoaderRoute: typeof AuthenticatedOcktavusCalendarRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/connexions': {
+      id: '/_authenticated/ocktavus/connexions'
+      path: '/connexions'
+      fullPath: '/ocktavus/connexions'
+      preLoaderRoute: typeof AuthenticatedOcktavusConnexionsRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/contacts': {
+      id: '/_authenticated/ocktavus/contacts'
+      path: '/contacts'
+      fullPath: '/ocktavus/contacts'
+      preLoaderRoute: typeof AuthenticatedOcktavusContactsRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/docs': {
+      id: '/_authenticated/ocktavus/docs'
+      path: '/docs'
+      fullPath: '/ocktavus/docs'
+      preLoaderRoute: typeof AuthenticatedOcktavusDocsRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/drive': {
+      id: '/_authenticated/ocktavus/drive'
+      path: '/drive'
+      fullPath: '/ocktavus/drive'
+      preLoaderRoute: typeof AuthenticatedOcktavusDriveRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/forms': {
+      id: '/_authenticated/ocktavus/forms'
+      path: '/forms'
+      fullPath: '/ocktavus/forms'
+      preLoaderRoute: typeof AuthenticatedOcktavusFormsRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/gmail': {
+      id: '/_authenticated/ocktavus/gmail'
+      path: '/gmail'
+      fullPath: '/ocktavus/gmail'
+      preLoaderRoute: typeof AuthenticatedOcktavusGmailRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/journal': {
+      id: '/_authenticated/ocktavus/journal'
+      path: '/journal'
+      fullPath: '/ocktavus/journal'
+      preLoaderRoute: typeof AuthenticatedOcktavusJournalRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/reglages': {
+      id: '/_authenticated/ocktavus/reglages'
+      path: '/reglages'
+      fullPath: '/ocktavus/reglages'
+      preLoaderRoute: typeof AuthenticatedOcktavusReglagesRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/sheets': {
+      id: '/_authenticated/ocktavus/sheets'
+      path: '/sheets'
+      fullPath: '/ocktavus/sheets'
+      preLoaderRoute: typeof AuthenticatedOcktavusSheetsRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/slides': {
+      id: '/_authenticated/ocktavus/slides'
+      path: '/slides'
+      fullPath: '/ocktavus/slides'
+      preLoaderRoute: typeof AuthenticatedOcktavusSlidesRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/_authenticated/ocktavus/tasks': {
+      id: '/_authenticated/ocktavus/tasks'
+      path: '/tasks'
+      fullPath: '/ocktavus/tasks'
+      preLoaderRoute: typeof AuthenticatedOcktavusTasksRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/api/google/callback': {
+      id: '/api/google/callback'
+      path: '/api/google/callback'
+      fullPath: '/api/google/callback'
+      preLoaderRoute: typeof ApiGoogleCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/google-chat': {
+      id: '/api/public/google-chat'
+      path: '/api/public/google-chat'
+      fullPath: '/api/public/google-chat'
+      preLoaderRoute: typeof ApiPublicGoogleChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/_memotrack/memo/$id': {
+      id: '/_authenticated/_memotrack/memo/$id'
+      path: '/memo/$id'
+      fullPath: '/memo/$id'
+      preLoaderRoute: typeof AuthenticatedMemotrackMemoIdRouteImport
+      parentRoute: typeof AuthenticatedMemotrackRoute
+    }
+    '/_authenticated/_mm/automations/': {
+      id: '/_authenticated/_mm/automations/'
+      path: '/automations'
+      fullPath: '/automations/'
+      preLoaderRoute: typeof AuthenticatedMmAutomationsIndexRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/automations/$id': {
+      id: '/_authenticated/_mm/automations/$id'
+      path: '/automations/$id'
+      fullPath: '/automations/$id'
+      preLoaderRoute: typeof AuthenticatedMmAutomationsIdRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/automations/new': {
+      id: '/_authenticated/_mm/automations/new'
+      path: '/automations/new'
+      fullPath: '/automations/new'
+      preLoaderRoute: typeof AuthenticatedMmAutomationsNewRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/executions/': {
+      id: '/_authenticated/_mm/executions/'
+      path: '/executions'
+      fullPath: '/executions/'
+      preLoaderRoute: typeof AuthenticatedMmExecutionsIndexRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/_mm/executions/$id': {
+      id: '/_authenticated/_mm/executions/$id'
+      path: '/executions/$id'
+      fullPath: '/executions/$id'
+      preLoaderRoute: typeof AuthenticatedMmExecutionsIdRouteImport
+      parentRoute: typeof AuthenticatedMmRoute
+    }
+    '/_authenticated/ocktavus/agent/': {
+      id: '/_authenticated/ocktavus/agent/'
+      path: '/'
+      fullPath: '/ocktavus/agent/'
+      preLoaderRoute: typeof AuthenticatedOcktavusAgentIndexRouteImport
+      parentRoute: typeof AuthenticatedOcktavusAgentRoute
+    }
+    '/_authenticated/ocktavus/agent/$conversationId': {
+      id: '/_authenticated/ocktavus/agent/$conversationId'
+      path: '/$conversationId'
+      fullPath: '/ocktavus/agent/$conversationId'
+      preLoaderRoute: typeof AuthenticatedOcktavusAgentConversationIdRouteImport
+      parentRoute: typeof AuthenticatedOcktavusAgentRoute
+    }
+    '/_authenticated/ocktavus/chat/$threadId': {
+      id: '/_authenticated/ocktavus/chat/$threadId'
+      path: '/chat/$threadId'
+      fullPath: '/ocktavus/chat/$threadId'
+      preLoaderRoute: typeof AuthenticatedOcktavusChatThreadIdRouteImport
+      parentRoute: typeof AuthenticatedOcktavusRouteRoute
+    }
+    '/api/public/google/callback': {
+      id: '/api/public/google/callback'
+      path: '/api/public/google/callback'
+      fullPath: '/api/public/google/callback'
+      preLoaderRoute: typeof ApiPublicGoogleCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/angelo-cron': {
+      id: '/api/public/hooks/angelo-cron'
+      path: '/api/public/hooks/angelo-cron'
+      fullPath: '/api/public/hooks/angelo-cron'
+      preLoaderRoute: typeof ApiPublicHooksAngeloCronRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/tick': {
+      id: '/api/public/hooks/tick'
+      path: '/api/public/hooks/tick'
+      fullPath: '/api/public/hooks/tick'
+      preLoaderRoute: typeof ApiPublicHooksTickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedOcktavusAgentRouteChildren {
+  AuthenticatedOcktavusAgentConversationIdRoute: typeof AuthenticatedOcktavusAgentConversationIdRoute
+  AuthenticatedOcktavusAgentIndexRoute: typeof AuthenticatedOcktavusAgentIndexRoute
+}
+
+const AuthenticatedOcktavusAgentRouteChildren: AuthenticatedOcktavusAgentRouteChildren =
+  {
+    AuthenticatedOcktavusAgentConversationIdRoute:
+      AuthenticatedOcktavusAgentConversationIdRoute,
+    AuthenticatedOcktavusAgentIndexRoute: AuthenticatedOcktavusAgentIndexRoute,
+  }
+
+const AuthenticatedOcktavusAgentRouteWithChildren =
+  AuthenticatedOcktavusAgentRoute._addFileChildren(
+    AuthenticatedOcktavusAgentRouteChildren,
+  )
+
+interface AuthenticatedOcktavusRouteRouteChildren {
+  AuthenticatedOcktavusAgentRoute: typeof AuthenticatedOcktavusAgentRouteWithChildren
+  AuthenticatedOcktavusBloggerRoute: typeof AuthenticatedOcktavusBloggerRoute
+  AuthenticatedOcktavusCalendarRoute: typeof AuthenticatedOcktavusCalendarRoute
+  AuthenticatedOcktavusConnexionsRoute: typeof AuthenticatedOcktavusConnexionsRoute
+  AuthenticatedOcktavusContactsRoute: typeof AuthenticatedOcktavusContactsRoute
+  AuthenticatedOcktavusDocsRoute: typeof AuthenticatedOcktavusDocsRoute
+  AuthenticatedOcktavusDriveRoute: typeof AuthenticatedOcktavusDriveRoute
+  AuthenticatedOcktavusFormsRoute: typeof AuthenticatedOcktavusFormsRoute
+  AuthenticatedOcktavusGmailRoute: typeof AuthenticatedOcktavusGmailRoute
+  AuthenticatedOcktavusJournalRoute: typeof AuthenticatedOcktavusJournalRoute
+  AuthenticatedOcktavusReglagesRoute: typeof AuthenticatedOcktavusReglagesRoute
+  AuthenticatedOcktavusSheetsRoute: typeof AuthenticatedOcktavusSheetsRoute
+  AuthenticatedOcktavusSlidesRoute: typeof AuthenticatedOcktavusSlidesRoute
+  AuthenticatedOcktavusTasksRoute: typeof AuthenticatedOcktavusTasksRoute
+  AuthenticatedOcktavusIndexRoute: typeof AuthenticatedOcktavusIndexRoute
+  AuthenticatedOcktavusChatThreadIdRoute: typeof AuthenticatedOcktavusChatThreadIdRoute
+}
+
+const AuthenticatedOcktavusRouteRouteChildren: AuthenticatedOcktavusRouteRouteChildren =
+  {
+    AuthenticatedOcktavusAgentRoute:
+      AuthenticatedOcktavusAgentRouteWithChildren,
+    AuthenticatedOcktavusBloggerRoute: AuthenticatedOcktavusBloggerRoute,
+    AuthenticatedOcktavusCalendarRoute: AuthenticatedOcktavusCalendarRoute,
+    AuthenticatedOcktavusConnexionsRoute: AuthenticatedOcktavusConnexionsRoute,
+    AuthenticatedOcktavusContactsRoute: AuthenticatedOcktavusContactsRoute,
+    AuthenticatedOcktavusDocsRoute: AuthenticatedOcktavusDocsRoute,
+    AuthenticatedOcktavusDriveRoute: AuthenticatedOcktavusDriveRoute,
+    AuthenticatedOcktavusFormsRoute: AuthenticatedOcktavusFormsRoute,
+    AuthenticatedOcktavusGmailRoute: AuthenticatedOcktavusGmailRoute,
+    AuthenticatedOcktavusJournalRoute: AuthenticatedOcktavusJournalRoute,
+    AuthenticatedOcktavusReglagesRoute: AuthenticatedOcktavusReglagesRoute,
+    AuthenticatedOcktavusSheetsRoute: AuthenticatedOcktavusSheetsRoute,
+    AuthenticatedOcktavusSlidesRoute: AuthenticatedOcktavusSlidesRoute,
+    AuthenticatedOcktavusTasksRoute: AuthenticatedOcktavusTasksRoute,
+    AuthenticatedOcktavusIndexRoute: AuthenticatedOcktavusIndexRoute,
+    AuthenticatedOcktavusChatThreadIdRoute:
+      AuthenticatedOcktavusChatThreadIdRoute,
+  }
+
+const AuthenticatedOcktavusRouteRouteWithChildren =
+  AuthenticatedOcktavusRouteRoute._addFileChildren(
+    AuthenticatedOcktavusRouteRouteChildren,
+  )
+
+interface AuthenticatedAngeloRouteChildren {
+  AuthenticatedAngeloConnexionOdooRoute: typeof AuthenticatedAngeloConnexionOdooRoute
+  AuthenticatedAngeloFacturesRoute: typeof AuthenticatedAngeloFacturesRoute
+  AuthenticatedAngeloJournalRoute: typeof AuthenticatedAngeloJournalRoute
+  AuthenticatedAngeloParametresRoute: typeof AuthenticatedAngeloParametresRoute
+  AuthenticatedAngeloTableauDeBordRoute: typeof AuthenticatedAngeloTableauDeBordRoute
+}
+
+const AuthenticatedAngeloRouteChildren: AuthenticatedAngeloRouteChildren = {
+  AuthenticatedAngeloConnexionOdooRoute: AuthenticatedAngeloConnexionOdooRoute,
+  AuthenticatedAngeloFacturesRoute: AuthenticatedAngeloFacturesRoute,
+  AuthenticatedAngeloJournalRoute: AuthenticatedAngeloJournalRoute,
+  AuthenticatedAngeloParametresRoute: AuthenticatedAngeloParametresRoute,
+  AuthenticatedAngeloTableauDeBordRoute: AuthenticatedAngeloTableauDeBordRoute,
+}
+
+const AuthenticatedAngeloRouteWithChildren =
+  AuthenticatedAngeloRoute._addFileChildren(AuthenticatedAngeloRouteChildren)
+
+interface AuthenticatedMemotrackRouteChildren {
+  AuthenticatedMemotrackMemotrackRoute: typeof AuthenticatedMemotrackMemotrackRoute
+  AuthenticatedMemotrackMemoIdRoute: typeof AuthenticatedMemotrackMemoIdRoute
+}
+
+const AuthenticatedMemotrackRouteChildren: AuthenticatedMemotrackRouteChildren =
+  {
+    AuthenticatedMemotrackMemotrackRoute: AuthenticatedMemotrackMemotrackRoute,
+    AuthenticatedMemotrackMemoIdRoute: AuthenticatedMemotrackMemoIdRoute,
+  }
+
+const AuthenticatedMemotrackRouteWithChildren =
+  AuthenticatedMemotrackRoute._addFileChildren(
+    AuthenticatedMemotrackRouteChildren,
+  )
+
+interface AuthenticatedMmRouteChildren {
+  AuthenticatedMmCockpitRoute: typeof AuthenticatedMmCockpitRoute
+  AuthenticatedMmConnectionsRoute: typeof AuthenticatedMmConnectionsRoute
+  AuthenticatedMmCostsRoute: typeof AuthenticatedMmCostsRoute
+  AuthenticatedMmHelpyRoute: typeof AuthenticatedMmHelpyRoute
+  AuthenticatedMmKpiRoute: typeof AuthenticatedMmKpiRoute
+  AuthenticatedMmOptimizerRoute: typeof AuthenticatedMmOptimizerRoute
+  AuthenticatedMmPreferencesRoute: typeof AuthenticatedMmPreferencesRoute
+  AuthenticatedMmTicksRoute: typeof AuthenticatedMmTicksRoute
+  AuthenticatedMmToolsRoute: typeof AuthenticatedMmToolsRoute
+  AuthenticatedMmAutomationsIdRoute: typeof AuthenticatedMmAutomationsIdRoute
+  AuthenticatedMmAutomationsNewRoute: typeof AuthenticatedMmAutomationsNewRoute
+  AuthenticatedMmExecutionsIdRoute: typeof AuthenticatedMmExecutionsIdRoute
+  AuthenticatedMmAutomationsIndexRoute: typeof AuthenticatedMmAutomationsIndexRoute
+  AuthenticatedMmExecutionsIndexRoute: typeof AuthenticatedMmExecutionsIndexRoute
+}
+
+const AuthenticatedMmRouteChildren: AuthenticatedMmRouteChildren = {
+  AuthenticatedMmCockpitRoute: AuthenticatedMmCockpitRoute,
+  AuthenticatedMmConnectionsRoute: AuthenticatedMmConnectionsRoute,
+  AuthenticatedMmCostsRoute: AuthenticatedMmCostsRoute,
+  AuthenticatedMmHelpyRoute: AuthenticatedMmHelpyRoute,
+  AuthenticatedMmKpiRoute: AuthenticatedMmKpiRoute,
+  AuthenticatedMmOptimizerRoute: AuthenticatedMmOptimizerRoute,
+  AuthenticatedMmPreferencesRoute: AuthenticatedMmPreferencesRoute,
+  AuthenticatedMmTicksRoute: AuthenticatedMmTicksRoute,
+  AuthenticatedMmToolsRoute: AuthenticatedMmToolsRoute,
+  AuthenticatedMmAutomationsIdRoute: AuthenticatedMmAutomationsIdRoute,
+  AuthenticatedMmAutomationsNewRoute: AuthenticatedMmAutomationsNewRoute,
+  AuthenticatedMmExecutionsIdRoute: AuthenticatedMmExecutionsIdRoute,
+  AuthenticatedMmAutomationsIndexRoute: AuthenticatedMmAutomationsIndexRoute,
+  AuthenticatedMmExecutionsIndexRoute: AuthenticatedMmExecutionsIndexRoute,
+}
+
+const AuthenticatedMmRouteWithChildren = AuthenticatedMmRoute._addFileChildren(
+  AuthenticatedMmRouteChildren,
+)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedOcktavusRouteRoute: typeof AuthenticatedOcktavusRouteRouteWithChildren
+  AuthenticatedAngeloRoute: typeof AuthenticatedAngeloRouteWithChildren
+  AuthenticatedMemotrackRoute: typeof AuthenticatedMemotrackRouteWithChildren
+  AuthenticatedMmRoute: typeof AuthenticatedMmRouteWithChildren
+  AuthenticatedAppsRoute: typeof AuthenticatedAppsRoute
+  AuthenticatedBoardRoute: typeof AuthenticatedBoardRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedFavoritesRoute: typeof AuthenticatedFavoritesRoute
+  AuthenticatedHistoryRoute: typeof AuthenticatedHistoryRoute
+  AuthenticatedIdeasRoute: typeof AuthenticatedIdeasRoute
+  AuthenticatedIntegrationsRoute: typeof AuthenticatedIntegrationsRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedTeamRoute: typeof AuthenticatedTeamRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedOcktavusRouteRoute: AuthenticatedOcktavusRouteRouteWithChildren,
+  AuthenticatedAngeloRoute: AuthenticatedAngeloRouteWithChildren,
+  AuthenticatedMemotrackRoute: AuthenticatedMemotrackRouteWithChildren,
+  AuthenticatedMmRoute: AuthenticatedMmRouteWithChildren,
+  AuthenticatedAppsRoute: AuthenticatedAppsRoute,
+  AuthenticatedBoardRoute: AuthenticatedBoardRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedFavoritesRoute: AuthenticatedFavoritesRoute,
+  AuthenticatedHistoryRoute: AuthenticatedHistoryRoute,
+  AuthenticatedIdeasRoute: AuthenticatedIdeasRoute,
+  AuthenticatedIntegrationsRoute: AuthenticatedIntegrationsRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedTeamRoute: AuthenticatedTeamRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ApiAnalyzeRoute: ApiAnalyzeRoute,
+  ApiChatRoute: ApiChatRoute,
+  ApiGoogleCallbackRoute: ApiGoogleCallbackRoute,
+  ApiPublicGoogleChatRoute: ApiPublicGoogleChatRoute,
+  ApiPublicGoogleCallbackRoute: ApiPublicGoogleCallbackRoute,
+  ApiPublicHooksAngeloCronRoute: ApiPublicHooksAngeloCronRoute,
+  ApiPublicHooksTickRoute: ApiPublicHooksTickRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
