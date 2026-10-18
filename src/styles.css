@@ -734,3 +734,4 @@ font-family: "Manrope", sans-serif; color: var(--foreground); --font-display: "S
 .aura-file { display: inline-flex; align-items: center; gap: 2px; max-width: 180px; padding-left: 10px; border-radius: 999px; background: var(--tiffany-soft); }
 .aura-file > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .aura-file button { width: 24px; height: 24px; }
+@media (min-width:581px){ .lab-theme .topbar { display: none; } }
