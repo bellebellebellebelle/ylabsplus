@@ -722,3 +722,15 @@ font-family: "Manrope", sans-serif; color: var(--foreground); --font-display: "S
 .st-theme .board-grid { background-color: var(--board); background-image: radial-gradient(var(--st-grid) 1px, transparent 1px),radial-gradient(var(--st-grid) 1px, transparent 1px); }
 .st-theme .note-surface {color: var(--note-ink);box-shadow: var(--shadow-note);}
 .st-theme .scroll-slim {scrollbar-width: thin;scrollbar-color: var(--border) transparent;}
+
+/* Lab: voice + close as glowing dots stacked under the sidebar dot */
+.aura-orb[data-dot="1"] { left: 7px; right: auto; top: calc(50% + 34px); bottom: auto; width: 20px; height: 20px; min-width: 0; padding: 0; border-radius: 50%; background: var(--tiffany); border: 0; box-shadow: 0 0 0 6px var(--tiffany-soft), var(--tiffany-glow); z-index: 45; }
+.aura-orb[data-dot="1"][data-state="listening"] { background: var(--destructive); }
+.aura-orb[data-dot="1"][data-state="thinking"] { animation: aura-floating-pulse .6s ease-in-out infinite; }
+.aura-lab-close-dot { position: fixed; left: 7px; top: calc(50% + 72px); z-index: 45; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--aura-floating-surface); color: var(--tiffany); border: 1px solid var(--tiffany); box-shadow: 0 0 0 5px var(--tiffany-soft), var(--tiffany-glow); }
+.aura-lab-close-dot svg { width: 11px; height: 11px; }
+.aura-lab-close-dot:hover, .aura-orb[data-dot="1"]:hover { transform: scale(1.25); }
+.aura-attachments-floating { position: fixed; z-index: 46; left: 16px; bottom: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; max-width: min(70vw, 520px); padding: 4px; border-radius: 999px; background: var(--aura-floating-surface); color: var(--tiffany); border: 1px solid var(--tiffany-soft); backdrop-filter: blur(12px); font-size: 12px; }
+.aura-file { display: inline-flex; align-items: center; gap: 2px; max-width: 180px; padding-left: 10px; border-radius: 999px; background: var(--tiffany-soft); }
+.aura-file > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.aura-file button { width: 24px; height: 24px; }

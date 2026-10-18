@@ -9,6 +9,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { askAssistant, assistantSpeech, transcribeAudio } from "@/lib/assistant.functions";
 import bgUrl from "@/assets/interface.jpg";
 import { AuraMotion } from "@/components/aura-motion";
+import { AuraAttachments } from "@/components/aura-attachments";
+import type { AuraAttachment } from "@/lib/aura-attachments";
 const bg = { url: bgUrl };
 
 export const Route = createFileRoute("/")({
@@ -84,6 +86,7 @@ function Assistant({ userId, compact = false }: { userId: string; compact?: bool
   const [caption, setCaption] = useState("");
   const [board, setBoard] = useState<BoardItem[] | null>(null);
   const [lab, setLab] = useState<{ path: string; v: number } | null>(null);
+  const [files, setFiles] = useState<AuraAttachment[]>([]);
   const recRef = useRef<MediaRecorder | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const transcribe = useServerFn(transcribeAudio);
@@ -121,11 +124,13 @@ function Assistant({ userId, compact = false }: { userId: string; compact?: bool
 
   const handle = async (text: string) => {
     const request = ++requestRef.current;
-    setCaption("« " + text + " »");
+    const sent = files;
+    setCaption("« " + text + " »" + (sent.length ? ` · ${sent.length} fichier(s)` : ""));
     setState("thinking");
-    setBoard([{ kind: "step", text: "J'analyse votre demande…" }]);
+    setBoard([{ kind: "step", text: sent.length ? "Je lis vos fichiers…" : "J'analyse votre demande…" }]);
     try {
-      const r = await ask({ data: { text } });
+      const r = await ask({ data: { text, attachments: sent } });
+      setFiles([]);
       setBoard(r.board.length ? r.board : [{ kind: "result", title: "Réponse", lines: [r.reply] }]);
       setCaption(r.reply);
       if (r.open === "close") setLab(null);
@@ -133,13 +138,14 @@ function Assistant({ userId, compact = false }: { userId: string; compact?: bool
       setState("idle");
       const { audio } = await speech({ data: { text: r.reply } }).catch(() => ({ audio: null }));
       if (request !== requestRef.current) return;
+      const done = () => { setState("idle"); if (request === requestRef.current) setCaption(""); };
       if (audio) {
         const a = new Audio(`data:audio/wav;base64,${audio}`);
         audioRef.current = a;
         setState("speaking");
-        a.onended = () => setState("idle");
-        await a.play().catch(() => setState("idle"));
-      } else setState("idle");
+        a.onended = done;
+        await a.play().catch(done);
+      } else setTimeout(done, 6000);
     } catch (e) {
       setCaption((e as Error).message);
       setState("idle");
@@ -199,21 +205,22 @@ function Assistant({ userId, compact = false }: { userId: string; compact?: bool
   return (
     <>
       {!lab && !compact && <AuraMotion state={state} />}
-      {lab && <LabWindow path={lab.path} v={lab.v} onClose={() => setLab(null)} />}
-      <Button variant="ghost" aria-label="Parler à l'assistant" data-state={state} data-lab={lab || compact ? "1" : undefined} onClick={toggle} className={`aura-orb z-40 cursor-pointer outline-none ${lab || compact ? "aura-floating" : ""}`}>
-        {(lab || compact) && (state === 'thinking' ? <LoaderCircle className="animate-spin"/> : state === 'listening' || state === 'speaking' ? <Square/> : <AudioLines/>)}
+      {lab && <LabWindow path={lab.path} v={lab.v} />}
+      <Button variant="ghost" aria-label="Parler à l'assistant" data-state={state} data-lab={lab || compact ? "1" : undefined} data-dot={lab && !compact ? "1" : undefined} onClick={toggle} className={`aura-orb z-40 cursor-pointer outline-none ${lab || compact ? "aura-floating" : ""}`}>
+        {compact && !lab && (state === 'thinking' ? <LoaderCircle className="animate-spin"/> : state === 'listening' || state === 'speaking' ? <Square/> : <AudioLines/>)}
       </Button>
+      {lab && !compact && <button type="button" onClick={() => setLab(null)} aria-label="Fermer le laboratoire" title="Fermer le laboratoire" className="aura-lab-close-dot"><X/></button>}
+      <AuraAttachments files={files} onChange={setFiles} busy={state === "thinking"} floating />
       {caption && <p className={`aura-caption ${lab || compact ? "aura-caption-floating" : ""}`} role="status">{caption}</p>}
       {board && <AuraTaskPanel items={board} onClose={() => setBoard(null)} />}
     </>
   );
 }
 
-function LabWindow({ path, v, onClose }: { path: string; v: number; onClose: () => void }) {
+function LabWindow({ path, v }: { path: string; v: number }) {
   return (
     <section className="absolute inset-0 z-10 overflow-hidden" aria-label="Laboratoire">
       <iframe key={v} src={path} title="Laboratoire IDEALAB" allow="microphone" className="h-full w-full bg-background" />
-      <Button variant="ghost" size="icon" onClick={onClose} aria-label="Revenir à Aura" className="aura-lab-close"><X/></Button>
     </section>
   );
 }
