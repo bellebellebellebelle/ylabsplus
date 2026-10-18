@@ -62,7 +62,32 @@ async function sendDocument(o: Odoo, uid: number, a: { model: string; id: number
 const LAB_PAGES = ["/dashboard", "/ideas", "/apps", "/history", "/favorites", "/integrations", "/team", "/settings", "/memotrack", "/tableau-de-bord", "/factures", "/journal", "/parametres", "/connexion-odoo"];
 const APP_HOME: Record<string, string> = { lab: "/dashboard", memotrack: "/memotrack", angelo: "/tableau-de-bord" };
 
+async function webSearch(query: string) {
+  const res = await fetch("https://html.duckduckgo.com/html/?q=" + encodeURIComponent(query), { headers: { "User-Agent": "Mozilla/5.0 (Aura assistant)" } });
+  if (!res.ok) throw new Error(`Recherche web indisponible (${res.status})`);
+  const html = await res.text();
+  const strip = (s: string) => s.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"').trim();
+  const out: { title: string; url: string; snippet: string }[] = [];
+  const re = /<a[^>]+class="result__a"[^>]+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>[\s\S]*?class="result__snippet"[^>]*>([\s\S]*?)<\/a>/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) && out.length < 6) {
+    let url = m[1]!;
+    const u = /uddg=([^&]+)/.exec(url); if (u) url = decodeURIComponent(u[1]!);
+    out.push({ title: strip(m[2]!), url, snippet: strip(m[3]!) });
+  }
+  return out.length ? out : { info: "Aucun résultat" };
+}
+
+async function webFetch(url: string) {
+  if (!/^https?:\/\//.test(url)) throw new Error("URL invalide");
+  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Aura assistant)" } });
+  const text = (await res.text()).replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+  return text.slice(0, 5000);
+}
+
 const tools = [
+  { type: "function", function: { name: "web_search", description: "Rechercher sur le web (actualités, informations publiques, prix, entreprises…). Renvoie titres, liens et extraits.", parameters: { type: "object", properties: { query: { type: "string" }, label: { type: "string" } }, required: ["query"] } } },
+  { type: "function", function: { name: "web_fetch", description: "Lire le texte d'une page web à partir de son URL (après web_search).", parameters: { type: "object", properties: { url: { type: "string" }, label: { type: "string" } }, required: ["url"] } } },
   {
     type: "function",
     function: {
@@ -232,6 +257,7 @@ Méthode :
 - Si une méthode renvoie un assistant (wizard) ou une erreur, essaie une alternative native (ex: écrire le champ state/stage, ou valider via les champs quantity puis button_validate).
 - Termine TOUJOURS par board_write avec un résumé visuel du résultat.
 - Ne demande confirmation que si une information indispensable manque ; pour une suppression, assure-toi que c'est explicitement demandé.
+- Pour toute information externe ou récente, utilise web_search puis web_fetch si besoin. Les pièces jointes fournies sont lisibles directement : utilise leur contenu et, si demandé, transmets-les à l'app choisie via lab_action (attachment_index).
 Ta réponse finale est lue à voix haute : français, naturelle, 1 à 3 phrases, sans markdown.`;
 }
 
@@ -296,6 +322,12 @@ export async function runAgent(history: { role: string; content: string }[], odo
           if (path === "close") { open = "close"; result = "fermé"; }
           else if (LAB_PAGES.includes(path) || /^\/memo\/[\w-]+$/.test(path)) { open = path; board.push({ kind: "step", text: a.label || "Ouverture " + path }); result = "affiché"; }
           else result = { error: "Page inconnue" };
+        } else if (tc.function.name === "web_search") {
+          board.push({ kind: "step", text: a.label || "Recherche web : " + a.query });
+          result = await webSearch(String(a.query || ""));
+        } else if (tc.function.name === "web_fetch") {
+          board.push({ kind: "step", text: a.label || "Lecture " + a.url });
+          result = await webFetch(String(a.url || ""));
         } else if (tc.function.name === "lab_action") {
           board.push({ kind: "step", text: a.label || a.action });
           result = await lab.run(String(a.app), String(a.action), a.input ?? {});
