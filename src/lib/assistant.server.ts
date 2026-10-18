@@ -257,6 +257,7 @@ Méthode :
 - Si une méthode renvoie un assistant (wizard) ou une erreur, essaie une alternative native (ex: écrire le champ state/stage, ou valider via les champs quantity puis button_validate).
 - Termine TOUJOURS par board_write avec un résumé visuel du résultat.
 - Ne demande confirmation que si une information indispensable manque ; pour une suppression, assure-toi que c'est explicitement demandé.
+- Pour toute information externe ou récente, utilise web_search puis web_fetch si besoin. Les pièces jointes fournies sont lisibles directement : utilise leur contenu et, si demandé, transmets-les à l'app choisie via lab_action (attachment_index).
 Ta réponse finale est lue à voix haute : français, naturelle, 1 à 3 phrases, sans markdown.`;
 }
 
