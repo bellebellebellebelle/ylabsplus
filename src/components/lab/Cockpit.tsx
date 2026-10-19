@@ -2,6 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { AudioLines, ReceiptEuro, Bot, Send, Globe, Search, ChevronRight, Plus, Lightbulb, Settings, Sparkles, ExternalLink, Workflow, Users } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useServerFn } from '@tanstack/react-start';
+import { runWebSearch } from '@/lib/web-search.functions';
+import { Button } from '@/components/ui/button';
 
 type Activity = { kind: string; app_key: string | null; seconds_saved: number; created_at: string };
 type Auto = { id: string; name: string; status: 'draft' | 'active' | 'paused' };
@@ -44,6 +47,18 @@ export function Cockpit({ activity, ideasCount }: { activity: Activity[]; ideasC
   const [now, setNow] = useState<Date | null>(null);
   const [question, setQuestion] = useState('');
   const [search, setSearch] = useState('');
+  const webSearch = useServerFn(runWebSearch);
+  const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState('');
+  const [webResult, setWebResult] = useState<{ answer: string; sources: { title: string; url: string; snippet: string }[] } | null>(null);
+  async function searchWeb(query: string) {
+    const text = query.trim();
+    if (text.length < 2 || searching) return;
+    setSearch(text); setSearching(true); setSearchError(''); setWebResult(null);
+    try { setWebResult(await webSearch({ data: { query: text } })); }
+    catch (e) { setSearchError(e instanceof Error ? e.message : 'Recherche indisponible. Réessayez.'); }
+    finally { setSearching(false); }
+  }
   const [days, setDays] = useState(7);
   const weather = useWeather();
   useEffect(() => { setNow(new Date()); const id = setInterval(() => setNow(new Date()), 30_000); return () => clearInterval(id); }, []);
@@ -104,10 +119,12 @@ export function Cockpit({ activity, ideasCount }: { activity: Activity[]; ideasC
     </section>
 
     <section className="ck-card ck-web">
-      <header><h3><Globe size={15} />Recherche web IA</h3><span className="ck-pill">Aura</span></header>
-      <form className="ck-search" onSubmit={e => send(e, `Fais une recherche web : ${search}`, () => setSearch(''))}><Search size={14} /><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher sur le web…" aria-label="Recherche web" /></form>
-      <div className="ck-answer"><small><Sparkles size={11} />Synthèse IA</small><p>Aura parcourt le web, résume les sources fiables et vous propose une réponse claire avec ses références.</p></div>
-      {[{ t: 'Tendances IA et productivité', s: 'Sources d’actualité' }, { t: 'Automatisation des relances clients', s: 'Guides pratiques' }, { t: 'Assistants vocaux en entreprise', s: 'Études & analyses' }].map(r => <button key={r.t} className="ck-result" onClick={() => askAura(`Fais une recherche web : ${r.t}`)}><span className="ck-fav"><Globe size={12} /></span><span><b>{r.t}</b><small>{r.s}</small></span><ExternalLink size={12} /></button>)}
+      <header><h3><Globe size={15} />Recherche web IA</h3><span className="ck-pill">GPT-6 Sol</span></header>
+      <form className="ck-search" onSubmit={e => { e.preventDefault(); void searchWeb(search); }}><input value={search} maxLength={300} onChange={e => setSearch(e.target.value)} placeholder="Rechercher sur le web…" aria-label="Recherche web" /><Button type="submit" variant="ghost" size="icon" disabled={searching || search.trim().length < 2} aria-label="Lancer la recherche" title="Lancer la recherche"><Search size={14} /></Button></form>
+      {searching && <p role="status" className="text-muted-foreground">Recherche en cours…</p>}
+      {searchError && <p role="alert" className="auth-error">{searchError}</p>}
+      {webResult && <><div className="ck-answer" aria-live="polite"><small><Sparkles size={11} />Synthèse GPT-6 Sol</small><p className="whitespace-pre-wrap">{webResult.answer}</p></div><div className="ck-sources">{webResult.sources.map((source, i) => <a key={source.url} className="ck-result" href={source.url} target="_blank" rel="noopener noreferrer"><span className="ck-fav">{i + 1}</span><span><b>{source.title}</b><small>{source.snippet}</small></span><ExternalLink size={12} /></a>)}</div></>}
+      {!webResult && !searching && ['Tendances IA et productivité', 'Automatisation des relances clients', 'Assistants vocaux en entreprise'].map(query => <Button key={query} variant="ghost" className="ck-result" onClick={() => void searchWeb(query)}><span className="ck-fav"><Globe size={12} /></span><span><b>{query}</b></span><ChevronRight size={12} /></Button>)}
     </section>
 
     <section className="ck-card ck-list">
